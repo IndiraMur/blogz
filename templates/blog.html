@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<h1>main page</h1>
+
+
+    <label>
+        LIST OF MY BLOGS
+    </label>
+
+
+
+
+    
+<ul> 
+    {% for title in titles %}
+    
+    <form action = "/display" method='POST'>
+        <a href ="./display"> {{title.title}} </a>
+        
+        <h2></h2>
+        <h4>{{title.body}}</h4>
+        
+        
+   
+    
+    
+    
+    {% endfor %}
+</ul>
+</form>
+
+
+{% endblock %}
