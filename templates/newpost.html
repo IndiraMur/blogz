@@ -2,12 +2,14 @@
 
 {% block content %}
     <h1>Add a blog entry</h1>
-    <form action = "/newpost", method='post'>
+    <form action = "/newpost">
         <label>
             Title for your new blog :<br>
             <input type="text" name='title' /><br>
+<!--             <p class="error">{{error_title}}</p> -->
             Your new blog : <br>
             <textarea type="textarea" name="body"></textarea><br>
+ <!--           <p class="error">{{error_body}}</p>-->
             <input type="submit" value='Add Entry' />
         </label>
     </form>

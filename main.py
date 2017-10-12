@@ -27,34 +27,44 @@ def blog():
 
 @app.route("/newpost", methods=['POST','GET'])
 def new_blog():
+   
     if request.method == 'POST':
-        
+        return "<h1>sdfsf</h1>"
         title= request.form['title']
         body = request.form['body']
         new_blog = Blog(title,body)
         db.session.add(new_blog)
         db.session.commit()
-        return redirect('/')
+        new_title = Blog.query.filter_by(title=title).first()
+        blog_id= new_title.id
         
-        
+        return redirect('/display?id={}'.format(blog_id))
     
-    return render_template('/newpost.html')
-
-@app.route("/display", methods=['GET'])
+    
+    return render_template("newpost.html")
+    
+@app.route("/display", methods=['POST','GET'])
 def display():
-#    form_value = request.args.get("blog.title")
-   
+    
+    blog_id=request.args.get("id")
+    blogs = Blog.query.all()
+    if blog_id:
+
+        blog=Blog.query.get(blog_id)
+        return render_template("display.html",blog=blog)
+    else:
+        return render_template("blog.html",blogs=blogs)
     
     
-    return render_template("display.html")
+    
     
 
 
 
 @app.route("/", methods=['POST', 'GET'])
 def index():
-    titles = Blog.query.all()
-    return render_template('blog.html',titles=titles)
+    blogs = Blog.query.all()
+    return render_template('blog.html',blogs=blogs)
 
 
 

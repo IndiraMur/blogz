@@ -2,13 +2,14 @@
 
 {% block content %}
 
-    <form action = "/display", method='post'>
+    
         <label>
-                
-                <h2>{{title}}</h2>
-                <h4>{{body}}</h4>
+       <form action="/display">
+            <h2>{{blog.title}}</h2>
+            <h4>{{blog.body}}</h4>
+       </form>
         </label>
-    </form>
+    
 
     
 
