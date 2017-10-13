@@ -29,19 +29,18 @@ def blog():
 def new_blog():
    
     if request.method == 'POST':
-        return "<h1>sdfsf</h1>"
         title= request.form['title']
         body = request.form['body']
-        new_blog = Blog(title,body)
-        db.session.add(new_blog)
+        addedBlog = Blog(title,body)
+        db.session.add(addedBlog)
         db.session.commit()
         new_title = Blog.query.filter_by(title=title).first()
         blog_id= new_title.id
         
-        return redirect('/display?id={}'.format(blog_id))
-    
+        return redirect('/display?id={0}'.format(blog_id))
     
     return render_template("newpost.html")
+    
     
 @app.route("/display", methods=['POST','GET'])
 def display():
