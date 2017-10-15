@@ -27,19 +27,37 @@ def blog():
 
 @app.route("/newpost", methods=['POST','GET'])
 def new_blog():
+    error_title =""
+    error_body=""
    
     if request.method == 'POST':
         title= request.form['title']
         body = request.form['body']
         addedBlog = Blog(title,body)
-        db.session.add(addedBlog)
-        db.session.commit()
-        new_title = Blog.query.filter_by(title=title).first()
-        blog_id= new_title.id
         
-        return redirect('/display?id={0}'.format(blog_id))
+        
+        if title == "":
+            error_title ="Please fill in the title"
+        if body == "":
+                error_body = "Please fill in the content"
+        if not error_title and not error_body:
+            db.session.add(addedBlog)
+            db.session.commit()
+            new_title = Blog.query.filter_by(title=title).first()
+            blog_id= new_title.id
+
+            return redirect('/display?id={0}'.format(blog_id))
+        
     
-    return render_template("newpost.html")
+
+    return render_template("newpost.html",error_title=error_title,error_body=error_body)
+
+
+
+        
+           
+            
+
     
     
 @app.route("/display", methods=['POST','GET'])
