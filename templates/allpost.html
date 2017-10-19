@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+    
+<ul> 
+    <h1>blog posts!</h1>
+    {% for blog in blogs1 %}
+    
+    
+        <a href ="/display?id={{blog.id}}"> {{blog.title}} </a>
+        <input type="hidden" name ="title-id" value = "{{blog.id}}"/>
+        <h4>{{blog.body}}</h4>
+        
+        <p style="font-style:italic;"> written by <a href="/display?user={{blog.username}}"> {{blog.username}}</a></p>
+    {% endfor %}
+</ul>
+
+
+
+{% endblock %}
