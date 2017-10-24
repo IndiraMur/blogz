@@ -12,11 +12,11 @@
 
 {% if blogs2|length != 0 %}
 
-<h2 style="background-color:Yellow">Blogs posts of {{blog_user}}:</h2>
+<h2 style="background-color:lightblue">Blogs posts of {{blog_user}}:</h2>
 
  {% for blog in blogs2 %}
-   <div style="background-color:darkturquoise">
-   <h3><a href="/display?id={{blog.id}}" >{{ blog.title }}</a></h3>
+   
+    <h3><a href="/display?id={{blog.id}}" >{{ blog.title }}</a></h3>
    <p>         {{blog.body}} </p>
    <p style="font-style:italic;"> written by <a href="/display?user={{blog.username}}"> {{blog.username}}</a></p>
    {% endfor %}

@@ -36,7 +36,7 @@ class User(db.Model):
 
 @app.before_request
 def require_login():
-    allowed_routes = ['login', 'signup','display','newpost','blog']
+    allowed_routes = ['login', 'signup','display','index']
     if request.endpoint not in allowed_routes and 'username' not in session:
         return redirect('/login')
 
@@ -66,6 +66,7 @@ def new_blog():
         if body == "":
                 error_body = "Please fill in the content"
         if not error_title and not error_body:
+            owner = User.query.filter_by(username=session['username']).first()
             db.session.add(addedBlog)
             db.session.commit()
             new_title = Blog.query.filter_by(title=title).first()
@@ -93,6 +94,9 @@ def display():
         return render_template('singleUser.html',blogs2=blogs2,blog_user = blog_user)
 
     blog_id=request.args.get("id")
+    username = session.get('username')
+    user =User.query.filter_by(username=username).first()
+   
     blogs = Blog.query.all()
     if blog_id:
 
@@ -155,9 +159,6 @@ def logout():
     del session['username']
     return redirect('/')
    
-
-
-
 
 @app.route("/", methods=['POST', 'GET'])
 def index():
